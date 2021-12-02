@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Shop
+namespace OnlineShop
 {
     //CLASS PRODUCT
     //Implements comparable
@@ -55,18 +55,18 @@ namespace Shop
 
         //METHODS
         //To check if the product is expired
-        public bool checkExpiration()
+        public bool CheckExpiration()
         {
-            DateTime curratenDate = DateTime.Now; bool x;
+            DateTime curratenDate = DateTime.Now;
             string[] expired = (Convert.ToString(this.expireDate - curratenDate)).Split(':');
-            return x = Double.Parse(expired[0]) < 0 ? true : false;
+            return double.Parse(expired[0]) < 0;
         }
         //To check print the product without "line skip" at the end for "Class Basket" purpose
-        public string printProductBasket()
+        public string PrintProductBasket()
         {
             string dateE = this.expireDate.ToString("yyyy-MM-dd");
             string dateM = this.manufDate.ToString("yyyy-MM-dd");
-            bool isExpired = checkExpiration();
+            bool isExpired = CheckExpiration();
             Console.Write(this.id + "\t" + this.name + "\t\t$" + "{0:N2}", this.price + "\t" + dateM + "\t" + dateE + "\t" + isExpired);
             return null;
         }
@@ -77,7 +77,7 @@ namespace Shop
         {
             string dateE = this.expireDate.ToString("yyyy-MM-dd");
             string dateM = this.manufDate.ToString("yyyy-MM-dd");
-            bool isExpired = checkExpiration();
+            bool isExpired = CheckExpiration();
             Console.WriteLine(this.id + "\t" + this.name + "\t\t$" + "{0:N2}", this.price + "\t" + dateM + "\t" + dateE + "\t" + isExpired);
             return null;
         }
@@ -98,17 +98,6 @@ namespace Shop
             else
                 return 0;
         }
-        //Default GetHashCode funtion(ASK)
-        //    public override int GetHashCode()
-        //{
-        //    int hashCode = -1864515902;
-        //    hashCode = hashCode * -1521134295 + id.GetHashCode();
-        //    hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
-        //    hashCode = hashCode * -1521134295 + price.GetHashCode();
-        //    hashCode = hashCode * -1521134295 + expireDate.GetHashCode();
-        //    hashCode = hashCode * -1521134295 + manufDate.GetHashCode();
-        //    return hashCode;
-        //}
 
         //Override GetHashCode (ASK)
         public override int GetHashCode()

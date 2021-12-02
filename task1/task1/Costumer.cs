@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop
+namespace OnlineShop
 {
     class Costumer:IComparable<Costumer>
     {
@@ -13,6 +13,7 @@ namespace Shop
         private string email;
         private long mobile;
         private string addres;
+        
 
         // CONSTRUCTOR (zero Patameters)
         public Costumer()
@@ -36,6 +37,7 @@ namespace Shop
         public string Email { get => email; set => email = value; }
         public long Mobile { get => mobile; set => mobile = value; }
         public string Addres { get => addres; set => addres = value; }
+        
 
         public int CompareTo(Costumer otherCostumer)
         {
@@ -54,7 +56,6 @@ namespace Shop
                    email == costumer.email &&
                    mobile == costumer.mobile;
         }
-
         public override int GetHashCode()
         {
             return this.name.GetHashCode();

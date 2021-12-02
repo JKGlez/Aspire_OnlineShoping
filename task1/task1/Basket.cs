@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop
+namespace OnlineShop
 {
     class Basket
     {
@@ -20,7 +20,7 @@ namespace Shop
 
 
         //Methods
-        public void addProductToBasket(Product productToAdd, int quantity)
+        public void AddProductToBasket(Product productToAdd, int quantity)
         {
             productOnBasket.Add(productToAdd);
             quantityOnBasket.Add(quantity);
@@ -29,12 +29,12 @@ namespace Shop
             Console.WriteLine("Current total to pay: "+amoutToPay);
         }
 
-        public void printBasket()
+        public void PrintBasket()
         {
             Console.WriteLine("ID \tNAME \t\tPRICE  \tManufactured \tExpire date \tExpired? \tQuantity \tTotal");
             for (int i = 0; i < productOnBasket.Count; i++)
             {
-                Console.WriteLine(productOnBasket[i].printProductBasket() + "\t\t" + quantityOnBasket[i] + "\t\t$" + (quantityOnBasket[i] * productOnBasket[i].Price));
+                Console.WriteLine(productOnBasket[i].PrintProductBasket() + "\t\t" + quantityOnBasket[i] + "\t\t$" + (quantityOnBasket[i] * productOnBasket[i].Price));
             }
             Console.WriteLine("CURRENT TOTAL FOR THE BASKET: $" + amoutToPay);
                 
