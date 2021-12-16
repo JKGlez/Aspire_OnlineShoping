@@ -37,7 +37,6 @@ namespace Aspire_OnlineShop_V2._0
         public override string ToString()
         {
             return (Id + "\t" + Category + "\t" + Name + "\t$" + Price + "\t");
-            
         }
 
         //Abstracts methods

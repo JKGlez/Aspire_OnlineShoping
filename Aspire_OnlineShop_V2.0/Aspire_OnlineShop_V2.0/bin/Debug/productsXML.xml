@@ -7,7 +7,7 @@
     <Stock>10</Stock>
     <Guarantee_Date>2022/12/24</Guarantee_Date>
   </Product>
-  <Product Category="groceries">
+  <Product Category="groceries"> 
     <ID>321</ID>
     <Name>Eggs</Name>
     <Price>6</Price>
