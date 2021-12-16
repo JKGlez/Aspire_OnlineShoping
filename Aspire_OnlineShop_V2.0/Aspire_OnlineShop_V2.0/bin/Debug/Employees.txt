@@ -1,4 +1,0 @@
-admin,admin@email.com,0123456789,street 0 number 0,admin,true
-Juan Gonzalez,juan.jonzalez@email.com,1234567890,street 1 number 1,juan,false
-Ercik Balandas,ercik.balandas@email.com,2345678901,street 2 number 2,erick,falsePedro,pedro@email.com,9876543210,street 10 number 10,pedro,True
-Pedro,pedro@email.com,9876543210,street 10 number 10,pedro,True
