@@ -9,6 +9,8 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
+using System.Data.SqlClient;
+
 namespace Aspire_OnlineShop_V2._0
 {
     class Shop
@@ -94,6 +96,7 @@ namespace Aspire_OnlineShop_V2._0
         public void ReadProductsXML()
         {
             XmlDocument xmlDocProducts = new XmlDocument();
+
             try
             {
                 xmlDocProducts.Load("./productsXML.xml");
@@ -125,7 +128,7 @@ namespace Aspire_OnlineShop_V2._0
             finally
             {
                 xmlDocProducts.Load("./productsXML.xml");
-                Product currentProduct = null;
+                //Product currentProduct = null;
                 //Console.WriteLine(xmlDocProducts.InnerXml);
                 //Console.ReadKey();
 
@@ -138,6 +141,7 @@ namespace Aspire_OnlineShop_V2._0
                 string[] dateS;
 
                 var ProductsOnTheShop = xmlDocProducts.DocumentElement.ChildNodes;
+
                 foreach (XmlNode productNode in ProductsOnTheShop)
                 {
                     if (productNode.HasChildNodes)
@@ -320,6 +324,21 @@ namespace Aspire_OnlineShop_V2._0
                 rootNode.AppendChild(productNode);
                 xmlDocProducts.Save("./productsXML.xml");
             }
+        }
+        public void ReadProductsDB()
+        {
+            
+            Console.WriteLine("Checking conection");
+            //string connectionString = "server = localhost ; database = OnlineShop ; integrated security = true";
+            string connectionString = "Data Source = DESKTOP-4C0KIA6\\MSSQLSERVER_JK ; Initial Catalog = OnlineShop ; integrated security = true";
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            Console.WriteLine("connection to DB OPEN");
+            
+            Console.ReadKey();
+            connection.Close();
+            Console.WriteLine("connection to DB CLOSE");
+            Console.ReadKey();
         }
         public void RegisterProduct()
         {

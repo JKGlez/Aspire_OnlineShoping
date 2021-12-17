@@ -1,25 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ProductsOnTheShop>
   <Product Category="electronics">
-    <ID>321</ID>
-    <Name>tablet</Name>
-    <Price>2500</Price>
-    <Stock>10</Stock>
-    <Guarantee_Date>2022/12/24</Guarantee_Date>
-  </Product>
-  <Product Category="groceries">
-    <ID>321</ID>
-    <Name>Eggs</Name>
-    <Price>6</Price>
-    <Stock>50</Stock>
-    <Expire_Date>2021/12/24</Expire_Date>
-    <Manuf_Date>2021/12/01</Manuf_Date>
-  </Product>
-  <Product Category="electronics">
     <ID>666</ID>
     <Name>Phone</Name>
     <Price>5000</Price>
     <Stock>10</Stock>
     <Guarantee_Date>2022/12/24</Guarantee_Date>
+  </Product>
+  <Product Category="Groceries">
+    <ID>123</ID>
+    <Name>Apple</Name>
+    <Price>5</Price>
+    <Stock>75</Stock>
+    <Expire_Date>2021/11/30</Expire_Date>
+    <Manuf_Date>2021/11/20</Manuf_Date>
   </Product>
 </ProductsOnTheShop>
