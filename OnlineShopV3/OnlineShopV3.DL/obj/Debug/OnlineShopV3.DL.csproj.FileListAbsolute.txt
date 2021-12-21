@@ -1,0 +1,10 @@
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\bin\Debug\OnlineShopV3.DL.dll
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\bin\Debug\OnlineShopV3.DL.pdb
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\bin\Debug\OnlineShopV3.BO.exe
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\bin\Debug\OnlineShopV3.BO.pdb
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\bin\Debug\OnlineShopV3.BO.exe.config
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\obj\Debug\OnlineShopV3.DL.csproj.AssemblyReference.cache
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\obj\Debug\OnlineShopV3.DL.csproj.CoreCompileInputs.cache
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\obj\Debug\OnlineShopV3.DL.csproj.CopyComplete
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\obj\Debug\OnlineShopV3.DL.dll
+C:\Users\JK\Desktop\OnlineShopV3\OnlineShopV3.DL\obj\Debug\OnlineShopV3.DL.pdb

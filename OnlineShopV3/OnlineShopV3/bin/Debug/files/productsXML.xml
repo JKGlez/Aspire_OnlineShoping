@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ProductsOnTheShop>
+  <Product Category="Groceries">
+    <ID>123</ID>
+    <Name>Eggs</Name>
+    <Price>5</Price>
+    <Stock>10</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>123</ID>
+    <Name>eggs</Name>
+    <Price>5</Price>
+    <Stock>50</Stock>
+  </Product>
+</ProductsOnTheShop>
