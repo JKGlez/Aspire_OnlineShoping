@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,258 @@ namespace OnlineShopV3.DL
 {
     public class ProductDataAccess
     {
+        public void ReadProductsDBRudeWay(List<Product> ShopsProducts, List<int> ShopsProductsStock)
+        {
+            try
+            {
+                using (SqlConnection conn = DbCommonConection.GetConnection())
+                {
+                        string nameP,categoryP,expireDP,manufDP,guaranteeDP;
+                        int idP, stockP;
+                        double priceP;
+                        Grocery groceryDB;
+                        Electronic electronicDB;
+
+                        string sqlQueryString = "SELECT * FROM tbl_products";
+                        SqlDataAdapter sda = new SqlDataAdapter(sqlQueryString,conn);
+                        DataSet dts = new DataSet();
+                        sda.Fill(dts, "tbl_products");
+                        DataTable dtt = new DataTable();
+                        dtt = dts.Tables["tbl_products"];
+
+
+                    foreach (DataRow item in dtt.Rows)
+                    {
+                        categoryP = item["CATEGORY_PRODUCT"].ToString();
+                        nameP = item["NAME_PRODUCT"].ToString();
+                        idP = int.Parse(item["ID_PRODUCT"].ToString());
+                        priceP = double.Parse(item["PRICE_PRODUCT"].ToString());
+                        stockP = int.Parse(item["STOCK_PRODUCT"].ToString());
+
+                        
+
+                        if (categoryP.ToLower().Equals("groceries"))
+                        {
+                            expireDP = item["EXPIRE_DATE_PRODUCT"].ToString().Substring(0, 10);
+                            string[] expireS = expireDP.Split('/');
+                            DateTime expire = new DateTime(int.Parse(expireS[2]), int.Parse(expireS[1]), int.Parse(expireS[0]));
+
+                            manufDP = item["MANUF_DATE_PRODUCT"].ToString();
+                            string[] manufS = expireDP.Split('/');
+                            DateTime manuf = new DateTime(int.Parse(manufS[2]), int.Parse(manufS[1]), int.Parse(manufS[0]));
+
+                            groceryDB = new Grocery(idP, categoryP, nameP, priceP, expire, manuf);
+                            ShopsProducts.Add(groceryDB);
+                            ShopsProductsStock.Add(stockP);
+                        }
+                        else if (categoryP.ToLower().Equals("electronics"))
+                        {
+                            guaranteeDP = item["GUARANTEE_DATE_PRODUCT"].ToString().Substring(0, 10);
+                            string[] guaranteeS = guaranteeDP.Split('/');
+                            DateTime guarantee = new DateTime(int.Parse(guaranteeS[2]), int.Parse(guaranteeS[1]), int.Parse(guaranteeS[0]));
+                            electronicDB = new Electronic(idP, categoryP, nameP, priceP, guarantee);
+                            ShopsProducts.Add(electronicDB);
+                            ShopsProductsStock.Add(stockP);
+                        }
+                        else
+                        {
+                           
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+           
+        }
+        public int WriteProductDBRudeWay(Product product, int stockToAdd)
+        {
+            
+            using (SqlConnection conn = DbCommonConection.GetConnection())
+            {
+                //Console.WriteLine(product.GetType().ToString());
+                if (product.GetType().ToString().Equals("OnlineShopV3.BO.Grocery")) {
+                    Grocery productToAdd = (Grocery)product;
+                    string  sqlQueryString = string.Format("INSERT INTO tbl_products (CATEGORY_PRODUCT,ID_PRODUCT,NAME_PRODUCT,PRICE_PRODUCT,STOCK_PRODUCT,EXPIRE_DATE_PRODUCT,MANUF_DATE_PRODUCT) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')", 
+                                                   productToAdd.Category, productToAdd.Id, productToAdd.Name,productToAdd.Price,stockToAdd,productToAdd.ExpireDate.ToString("yyyy/MM/dd"), productToAdd.ManufDate.ToString("yyyy/MM/dd"));
+                    SqlCommand Command = new SqlCommand(sqlQueryString,conn);
+                    return Command.ExecuteNonQuery();
+                }
+                else if (product.GetType().ToString().Equals("OnlineShopV3.BO.Electronic"))
+                {
+                    Electronic productToAdd = (Electronic)product;
+                    string sqlQueryString = string.Format("INSERT INTO tbl_products (CATEGORY_PRODUCT,ID_PRODUCT,NAME_PRODUCT,PRICE_PRODUCT,STOCK_PRODUCT,GUARANTEE_DATE_PRODUCT) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}')",
+                                                   productToAdd.Category, productToAdd.Id, productToAdd.Name, productToAdd.Price, stockToAdd, productToAdd.Guarantee.ToString("yyyy/MM/dd"));
+                    SqlCommand Command = new SqlCommand(sqlQueryString, conn);
+                    return Command.ExecuteNonQuery();
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+        }
+        public void ReadProductsDB(List<Product> ShopsProducts, List<int> ShopsProductsStock)
+        {
+            using (SqlConnection conn = DbCommonConection.GetConnection())
+            {
+                string nameP, categoryP, expireDP, manufDP, guaranteeDP;
+                int idP, stockP;
+                double priceP;
+                Grocery groceryDB;
+                Electronic electronicDB;
+
+                SqlCommand cmd = new SqlCommand("sp_readAllProducts", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                SqlDataReader readerProducts = cmd.ExecuteReader();
+                DataTable dtt = new DataTable();
+                dtt.Load(readerProducts);
+
+                foreach (DataRow item in dtt.Rows)
+                {
+                    categoryP = item["CATEGORY_PRODUCT"].ToString();
+                    nameP = item["NAME_PRODUCT"].ToString();
+                    idP = int.Parse(item["ID_PRODUCT"].ToString());
+                    priceP = double.Parse(item["PRICE_PRODUCT"].ToString());
+                    stockP = int.Parse(item["STOCK_PRODUCT"].ToString());
+
+                    if (categoryP.ToLower().Equals("groceries"))
+                    {
+                        expireDP = item["EXPIRE_DATE_PRODUCT"].ToString().Substring(0, 10);
+                        string[] expireS = expireDP.Split('/');
+                        DateTime expire = new DateTime(int.Parse(expireS[2]), int.Parse(expireS[1]), int.Parse(expireS[0]));
+
+                        manufDP = item["MANUF_DATE_PRODUCT"].ToString();
+                        string[] manufS = expireDP.Split('/');
+                        DateTime manuf = new DateTime(int.Parse(manufS[2]), int.Parse(manufS[1]), int.Parse(manufS[0]));
+
+                        groceryDB = new Grocery(idP, categoryP, nameP, priceP, expire, manuf);
+                        ShopsProducts.Add(groceryDB);
+                        ShopsProductsStock.Add(stockP);
+                    }
+                    else if (categoryP.ToLower().Equals("electronics"))
+                    {
+                        guaranteeDP = item["GUARANTEE_DATE_PRODUCT"].ToString().Substring(0, 10);
+                        string[] guaranteeS = guaranteeDP.Split('/');
+                        DateTime guarantee = new DateTime(int.Parse(guaranteeS[2]), int.Parse(guaranteeS[1]), int.Parse(guaranteeS[0]));
+                        electronicDB = new Electronic(idP, categoryP, nameP, priceP, guarantee);
+                        ShopsProducts.Add(electronicDB);
+                        ShopsProductsStock.Add(stockP);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+        public int WriteProductDB(Product product, int stockToAdd)
+        {
+            int res = -1;
+            using (SqlConnection conn = DbCommonConection.GetConnection())
+            {
+                //Console.WriteLine(product.GetType().ToString());
+                if (product.GetType().ToString().Equals("OnlineShopV3.BO.Grocery"))
+                {
+                    Grocery productToAdd = (Grocery)product;
+                    SqlCommand cmd = new SqlCommand("sp_insertNewGrocesy", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@categoryP", SqlDbType.NVarChar).Value = "groceries";
+                    cmd.Parameters.AddWithValue("@idP", SqlDbType.Int).Value = productToAdd.Id;
+                    cmd.Parameters.AddWithValue("@nameP", SqlDbType.NVarChar).Value = productToAdd.Name;
+                    cmd.Parameters.AddWithValue("@priceP", SqlDbType.Decimal).Value = productToAdd.Price;
+                    cmd.Parameters.AddWithValue("@stockP", SqlDbType.Int).Value = stockToAdd;
+                    cmd.Parameters.AddWithValue("@expireP", SqlDbType.Date).Value = productToAdd.ExpireDate.ToString("yyyy/MM/dd");
+                    cmd.Parameters.AddWithValue("@manufP", SqlDbType.Date).Value = productToAdd.ManufDate.ToString("yyyy/MM/dd");
+                    res = cmd.ExecuteNonQuery();
+                    
+                }
+                else if (product.GetType().ToString().Equals("OnlineShopV3.BO.Electronic"))
+                {
+                    Electronic productToAdd = (Electronic)product;
+                    SqlCommand cmd = new SqlCommand("sp_insertNewElectronic", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@categoryP", SqlDbType.NVarChar).Value = "electronics";
+                    cmd.Parameters.AddWithValue("@idP", SqlDbType.Int).Value = productToAdd.Id;
+                    cmd.Parameters.AddWithValue("@nameP", SqlDbType.NVarChar).Value = productToAdd.Name;
+                    cmd.Parameters.AddWithValue("@priceP", SqlDbType.Decimal).Value = productToAdd.Price;
+                    cmd.Parameters.AddWithValue("@stockP", SqlDbType.Int).Value = stockToAdd;
+                    cmd.Parameters.AddWithValue("@guaranteeP", SqlDbType.Date).Value = productToAdd.Guarantee.ToString("yyyy/MM/dd");
+                    res = cmd.ExecuteNonQuery();
+                    
+                }
+                else
+                {
+                    res = -1;
+                }
+                return res;
+            }
+        }
+        public void DeleteProductsDB(int idDelete)
+        {
+            int res = - 1;
+            using (SqlConnection conn = DbCommonConection.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand("sp_deleteProductById", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@idDelete", SqlDbType.Int).Value = idDelete;
+                res = cmd.ExecuteNonQuery();
+            }
+        }
+        public int UpdateProductDB(Product productToModify, Product newProduct, int stockToAdd)
+        {
+            int res = -1;
+            using (SqlConnection conn = DbCommonConection.GetConnection())
+            {
+                //Console.WriteLine(product.GetType().ToString());
+                if (productToModify.GetType().ToString().Equals("OnlineShopV3.BO.Grocery"))
+                {
+                    Grocery productToAdd = (Grocery)newProduct;
+                    SqlCommand cmd = new SqlCommand("sp_updateGrocerieByID", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@idP", SqlDbType.Int).Value = productToAdd.Id;
+                    cmd.Parameters.AddWithValue("@nameP", SqlDbType.NVarChar).Value = productToAdd.Name;
+                    cmd.Parameters.AddWithValue("@priceP", SqlDbType.Decimal).Value = productToAdd.Price;
+                    cmd.Parameters.AddWithValue("@stockP", SqlDbType.Int).Value = stockToAdd;
+                    cmd.Parameters.AddWithValue("@expireP", SqlDbType.Date).Value = productToAdd.ExpireDate.ToString("yyyy/MM/dd");
+                    cmd.Parameters.AddWithValue("@manufP", SqlDbType.Date).Value = productToAdd.ManufDate.ToString("yyyy/MM/dd");
+                    res = cmd.ExecuteNonQuery();
+
+                }
+                else if (productToModify.GetType().ToString().Equals("OnlineShopV3.BO.Electronic"))
+                {
+                    Electronic productToAdd = (Electronic)newProduct;
+                    SqlCommand cmd = new SqlCommand("sp_updateElectronicByID", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+                    cmd.Parameters.AddWithValue("@idP", SqlDbType.Int).Value = productToAdd.Id;
+                    cmd.Parameters.AddWithValue("@nameP", SqlDbType.NVarChar).Value = productToAdd.Name;
+                    cmd.Parameters.AddWithValue("@priceP", SqlDbType.Decimal).Value = productToAdd.Price;
+                    cmd.Parameters.AddWithValue("@stockP", SqlDbType.Int).Value = stockToAdd;
+                    cmd.Parameters.AddWithValue("@guaranteeP", SqlDbType.Date).Value = productToAdd.Guarantee.ToString("yyyy/MM/dd");
+                    res = cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    res = -1;
+                }
+                return res;
+            }
+        }
         public void ReadProductsXML(List<Product> ShopsProducts, List<int> ShopsProductsStock)
         {
             XmlDocument xmlDocProducts = new XmlDocument();
@@ -216,7 +470,7 @@ namespace OnlineShopV3.DL
                 productNode.AppendChild(productStock);
 
                 //Dates
-                if (theProduct.GetType().ToString().Equals("Aspire_OnlineShop_V2._0.Grocery"))
+                if (theProduct.GetType().ToString().Equals("OnlineShopV3.BO.Grocery"))
                 {
                     //Casting Product to Grocerie
                     Grocery productG = (Grocery)theProduct;
@@ -231,7 +485,7 @@ namespace OnlineShopV3.DL
                     productManufDate.AppendChild(prductManufDateValue);
                     productNode.AppendChild(productManufDate);
                 }
-                else if (theProduct.GetType().ToString().Equals("Aspire_OnlineShop_V2._0.Electronic"))
+                else if (theProduct.GetType().ToString().Equals("OnlineShopV3.BO..Electronic"))
                 {
                     //Casting Product to Electronic
                     Electronic productE = (Electronic)theProduct;

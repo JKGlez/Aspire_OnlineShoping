@@ -12,4 +12,138 @@
     <Price>5</Price>
     <Stock>50</Stock>
   </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>75</Stock>
+    <Expire_Date>2021/12/24</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Electronic">
+    <ID>2</ID>
+    <Name>Fridge</Name>
+    <Price>3500</Price>
+    <Stock>5</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>25</Stock>
+    <Expire_Date>2021/12/24</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Electronic">
+    <ID>2</ID>
+    <Name>Fridge</Name>
+    <Price>3500</Price>
+    <Stock>5</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>1</ID>
+    <Name>Orange</Name>
+    <Price>6</Price>
+    <Stock>25</Stock>
+    <Expire_Date>2021/12/24</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Electronic">
+    <ID>2</ID>
+    <Name>Fridge</Name>
+    <Price>3500</Price>
+    <Stock>5</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>103</ID>
+    <Name>Apple</Name>
+    <Price>10</Price>
+    <Stock>75</Stock>
+    <Expire_Date>2021/12/30</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Groceries">
+    <ID>104</ID>
+    <Name>Apple</Name>
+    <Price>10</Price>
+    <Stock>25</Stock>
+    <Expire_Date>2021/12/30</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Groceries">
+    <ID>104</ID>
+    <Name>Apple</Name>
+    <Price>10</Price>
+    <Stock>50</Stock>
+    <Expire_Date>2021/12/30</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Electronic">
+    <ID>105</ID>
+    <Name>Lamp</Name>
+    <Price>399.99</Price>
+    <Stock>35</Stock>
+  </Product>
+  <Product Category="Electronic">
+    <ID>105</ID>
+    <Name>Lamp</Name>
+    <Price>399.99</Price>
+    <Stock>35</Stock>
+  </Product>
+  <Product Category="Groceries">
+    <ID>105</ID>
+    <Name>Banana</Name>
+    <Price>10</Price>
+    <Stock>100</Stock>
+    <Expire_Date>2021/12/30</Expire_Date>
+    <Manuf_Date>2021/10/01</Manuf_Date>
+  </Product>
+  <Product Category="Electronic">
+    <ID>104</ID>
+    <Name>Lamp</Name>
+    <Price>399.99</Price>
+    <Stock>25</Stock>
+  </Product>
+  <Product Category="Electronic">
+    <ID>104</ID>
+    <Name>Lamp</Name>
+    <Price>399</Price>
+    <Stock>10</Stock>
+  </Product>
+  <Product Category="Electronic">
+    <ID>104</ID>
+    <Name>Lamp</Name>
+    <Price>399.99</Price>
+    <Stock>25</Stock>
+  </Product>
 </ProductsOnTheShop>
